@@ -1,1 +1,1 @@
-web: python3 wallet-bot.py
+worker: python3 wallet-bot.py
