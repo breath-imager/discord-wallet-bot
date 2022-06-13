@@ -1,5 +1,5 @@
 .env
 venv
 /env
-psql.txt
+instructions.txt
 wallet-bot.sql

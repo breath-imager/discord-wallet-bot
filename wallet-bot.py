@@ -6,6 +6,7 @@ import json
 import psycopg2
 from dotenv import load_dotenv
 
+print("I am bot.")
 load_dotenv()
 
 conn = psycopg2.connect(
