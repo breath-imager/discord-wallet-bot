@@ -55,33 +55,43 @@ async def on_message(message):
             await message.channel.send("In order to add your tezos wallet, please type the following instruction: **add <tezos wallet address>** for ex: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
 
         if msg.startswith("add"):
-            tezos_wallet = message.content.split("add ",1)[1]
-            # check if user has already submitted wallet address, update if so, insert if not
-            cur.execute(
-                'SELECT * FROM tezos_wallets WHERE user_id = %s', (str(user),)
-            )
-            record = cur.fetchall()
-            if (record):
-                await message.channel.send("Wallet already added for " + str(user) +". If you want to update it, please type the following instruction: **update <tezos wallet address>** for ex: **update tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
+            try: 
+                tezos_wallet = message.content.split("add ",1)[1]
+            except:
+                tezos_wallet = -1
+            if (tezos_wallet == -1):
+                await message.channel.send("Incorrect format. Please type the following instruction: **add <tezos wallet address>** for ex: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
             else:
+                # check if user has already submitted wallet address, update if so, insert if not
                 cur.execute(
-                    'INSERT INTO tezos_wallets (user_id, tezos_wallet) VALUES (%s, %s)', (str(user), str(tezos_wallet))
+                    'SELECT * FROM tezos_wallets WHERE user_id = %s', (str(user),)
                 )
-                conn.commit()
-                await message.channel.send("Wallet added for " + str(user) + "!")
+                record = cur.fetchall()
+                if (record):
+                    await message.channel.send("Wallet already added for " + str(user) +". If you want to update it, please type the following instruction: **update <tezos wallet address>** for ex: **update tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
+                else:
+                    cur.execute(
+                        'INSERT INTO tezos_wallets (user_id, tezos_wallet) VALUES (%s, %s)', (str(user), str(tezos_wallet))
+                    )
+                    conn.commit()
+                    await message.channel.send("Wallet added for " + str(user) + "!")
 
 
         if msg.startswith("update"):
-            tezos_wallet = message.content.split("update ",1)[1]
-
-            cur.execute(
-                'SELECT * FROM tezos_wallets WHERE user_id = %s', (str(user),)
-            )
-            record = cur.fetchall()
-            if (record):
-                cur.execute( 'UPDATE tezos_wallets SET tezos_wallet = %s WHERE user_id = %s', (str(tezos_wallet),str(user)))
-                conn.commit()
-                await message.channel.send("Wallet updated for " +str(user) + "!")
-    
-
+            try: 
+                tezos_wallet = message.content.split("update ",1)[1]
+            except:
+                tezos_wallet = -1
+            if (tezos_wallet == -1):
+                await message.channel.send("Incorrect format. Please type the following instruction: **update <tezos wallet address>** for ex: **update tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
+            else:
+                cur.execute(
+                    'SELECT * FROM tezos_wallets WHERE user_id = %s', (str(user),)
+                )
+                record = cur.fetchall()
+                if (record):
+                    cur.execute( 'UPDATE tezos_wallets SET tezos_wallet = %s WHERE user_id = %s', (str(tezos_wallet),str(user)))
+                    conn.commit()
+                    await message.channel.send("Wallet updated for " +str(user) + "!")
+        
 client.run(os.getenv('TOKEN'))
