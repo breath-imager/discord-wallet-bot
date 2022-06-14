@@ -51,7 +51,8 @@ async def on_message(message):
 
     if msg.startswith('gm'):
         # make it less often, ie. 20% of time
-        if (random.choice(range(1,5)) == 1):
+        rndm = random.choice(range(1,6))
+        if (rndm == 1):
             await message.channel.send('gm!')
     
     if any(word in msg for word in OS):
