@@ -59,7 +59,7 @@ async def on_message(message):
         await message.channel.send(random.choice(oblique_strategies))
 
          
-    if (channel == 'tezos-wallet-auth'):
+    if ('wallet-auth' in channel):
         if any(word in msg for word in Help):
             await message.channel.send("In order to add your tezos wallet, please type the following instruction: **add <tezos wallet address>** for ex: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
 
