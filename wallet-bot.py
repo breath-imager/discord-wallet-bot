@@ -23,6 +23,8 @@ cur = conn.cursor()
 client = discord.Client()
 Help = ["help"]
 
+
+
 OS = ["!os", "!oblique", "!eno", "!strategies"]
 # load oblique strategies
 f = open("1.txt", "r")
@@ -46,6 +48,8 @@ async def on_message(message):
     if msg.startswith('hello'):
         await message.channel.send('Hello!')
 
+    if msg.startswith('gm'):
+        await message.channel.send('gm!')
     
     if any(word in msg for word in OS):
         await message.channel.send(random.choice(oblique_strategies))
