@@ -4,6 +4,7 @@ import requests
 import random
 import json
 import psycopg2
+import numpy
 from dotenv import load_dotenv
 
 print("I am bot.")
@@ -49,7 +50,9 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
     if msg.startswith('gm'):
-        await message.channel.send('gm!')
+        # make it less often, ie. 20% of time
+        if (random.choice(range(1,5)) == 1):
+            await message.channel.send('gm!')
     
     if any(word in msg for word in OS):
         await message.channel.send(random.choice(oblique_strategies))
