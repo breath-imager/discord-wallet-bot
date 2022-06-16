@@ -58,10 +58,10 @@ async def on_message(message):
     if any(word in msg for word in OS):
         await message.channel.send(random.choice(oblique_strategies))
 
-         
+    # wallet-auth channel specific commands
     if ('wallet-auth' in channel):
         if any(word in msg for word in Help):
-            await message.channel.send("In order to add your tezos wallet, please type the following instruction: **add <tezos wallet address>** for ex: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
+            await message.channel.send("In order to add your tezos wallet, please type the following instruction: **add + your tezos wallet address** for example: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
 
         if msg.startswith("add"):
             try: 
@@ -69,15 +69,16 @@ async def on_message(message):
             except:
                 tezos_wallet = -1
             if (tezos_wallet == -1):
-                await message.channel.send("Incorrect format. Please type the following instruction: **add <tezos wallet address>** for ex: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
+                await message.channel.send("Incorrect format. Please type the following instruction: **add + your tezos wallet address** for example: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
             else:
                 # check if user has already submitted wallet address, update if so, insert if not
+                
                 cur.execute(
                     'SELECT * FROM tezos_wallets WHERE user_id = %s', (str(user),)
                 )
                 record = cur.fetchall()
                 if (record):
-                    await message.channel.send("Wallet already added for " + str(user) +". If you want to update it, please type the following instruction: **update <tezos wallet address>** for ex: **update tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
+                    await message.channel.send("Wallet already added for " + str(user) +". If you want to update it, please type the following instruction: **update <tezos wallet address>** for example: **update tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
                 else:
                     cur.execute(
                         'INSERT INTO tezos_wallets (user_id, tezos_wallet) VALUES (%s, %s)', (str(user), str(tezos_wallet))
