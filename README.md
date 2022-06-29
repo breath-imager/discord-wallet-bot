@@ -14,9 +14,8 @@ Other features:
   
   
 
-Accessing the postgres database:
+Accessing the postgres database: authetication info can be found in heroku app settings
 -------------------------------  
-psql --host=ec2-52-44-13-158.compute-1.amazonaws.com --port=5432 --username=aarrjkfacqwgqc --password --dbname=d3oe0vsvoenbff
 
 SQL commands
   
