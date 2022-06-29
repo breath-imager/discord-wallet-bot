@@ -50,7 +50,16 @@ async def on_message(message):
         # make it less often, ie. 20% of time
         rndm = random.choice(range(1,6))
         if (rndm == 1):
-            await message.channel.send('gm!')
+            await message.channel.send(
+                '```' +
+                ' .d88b. 88888b.d88b.\n' +
+                'd88P"88b888 "888 "88b\n' + 
+                '888  888888  888  888\n' + 
+                'Y88b 888888  888  888\n' + 
+                ' "Y88888888  888  888\n' + 
+                '     888\n' + 
+                'Y8b d88P\n' + 
+                ' "Y88P"\n```'  )
     
     if any(word in msg for word in OS):
         await message.channel.send(random.choice(oblique_strategies))
