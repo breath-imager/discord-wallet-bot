@@ -46,9 +46,6 @@ async def on_message(message):
 
     #print(message)
     user = message.author
-    if msg.startswith('hello'):
-        await message.channel.send('Hello!')
-
     if msg.startswith('gm'):
         # make it less often, ie. 20% of time
         rndm = random.choice(range(1,6))
@@ -64,6 +61,7 @@ async def on_message(message):
             await message.channel.send("In order to add your tezos wallet, please type the following instruction: **add + your tezos wallet address** for example: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
 
         if msg.startswith("add"):
+            print("add")
             try: 
                 tezos_wallet = message.content.split("add ",1)[1]
             except:
