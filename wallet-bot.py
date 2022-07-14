@@ -4,7 +4,7 @@ import requests
 import random
 import json
 import psycopg2
-import numpy
+import numpy as np
 from dotenv import load_dotenv
 
 print("I am bot.")
@@ -47,10 +47,7 @@ async def on_message(message):
     #print(message)
     user = message.author
     if msg.startswith('gm'):
-        # make it less often, ie. 20% of time
-        rndm = random.choice(range(1,6))
-        if (rndm == 1):
-            await message.channel.send(
+        gms = [
                 '```' +
                 ' .d88b. 88888b.d88b.\n' +
                 'd88P"88b888 "888 "88b\n' + 
@@ -59,16 +56,71 @@ async def on_message(message):
                 ' "Y88888888  888  888\n' + 
                 '     888\n' + 
                 'Y8b d88P\n' + 
-                ' "Y88P"\n```'  )
+                ' "Y88P"\n```', 
+
+                '```' +
+                ' ,adPPYb,d8 88,dPYba,,adPYba,\n' +
+                'a8"    `Y88 88P`   "88"    "8a\n' +
+                '8b       88 88      88      88\n' +
+                '"8a,   ,d88 88      88      88\n' +
+                ' `"YbbdP"Y8 88      88      88\n' +
+                ' aa,    ,88\n' +
+                '  "Y8bbdP"  \n' + '```',
+
+                '```' +
+                '          _____                    _____          \n' +
+                '         /\    \                  /\    \         \n' +
+                '        /::\    \                /::\____\        \n' +
+                '       /::::\    \              /::::|   |        \n' +
+                '      /::::::\    \            /:::::|   |        \n' +
+                '     /:::/\:::\    \          /::::::|   |        \n' +
+                '    /:::/  \:::\    \        /:::/|::|   |        \n' +
+                '   /:::/    \:::\    \      /:::/ |::|   |        \n' +
+                '  /:::/    / \:::\    \    /:::/  |::|___|______  \n' +
+                ' /:::/    /   \:::\ ___\  /:::/   |::::::::\    \ \n' +
+                '/:::/____/  ___\:::|    |/:::/    |:::::::::\____\ \n' +
+                '\:::\    \ /\  /:::|____|\::/    / ~~~~~/:::/    / \n' +
+                ' \:::\    /::\ \::/    /  \/____/      /:::/    / \n' +
+                '  \:::\   \:::\ \/____/               /:::/    /  \n' +
+                '   \:::\   \:::\____\                /:::/    /   \n' +
+                '    \:::\  /:::/    /               /:::/    /    \n' +
+                '     \:::\/:::/    /               /:::/    /     \n' +
+                '      \::::::/    /               /:::/    /      \n' +
+                '       \::::/    /               /:::/    /       \n' +
+                '        \::/____/                \::/    /        \n' +
+                '                                  \/____/         \n' +
+                '```',
+
+                '```' +
+                '   ▄██████▄    ▄▄▄▄███▄▄▄▄    \n' +
+                '  ███    ███ ▄██▀▀▀███▀▀▀██▄  \n' +
+                '  ███    █▀  ███   ███   ███  \n' +
+                ' ▄███        ███   ███   ███  \n' +
+                '▀▀███ ████▄  ███   ███   ███  \n' +
+                '  ███    ███ ███   ███   ███  \n' +
+                '  ███    ███ ███   ███   ███  \n' +
+                '  ████████▀   ▀█   ███   █▀   \n' + 
+                '```',
+  ]
+
+
+
+        # make it less often, ie. 20% of time
+        rndm = random.choice(range(1,6))
+        if (rndm == 1):
+            await message.channel.send(np.random.choice(gms)
+                  )
     
     if any(word in msg for word in OS):
         await message.channel.send(random.choice(oblique_strategies))
 
     # wallet-auth channel specific commands
+    
+    
     if ('wallet-auth' in channel):
         if any(word in msg for word in Help):
             await message.channel.send("In order to add your tezos wallet, please type the following instruction: **add + your tezos wallet address** for example: **add tz1dqkxxmq2w5g6jzJRndFJY9E3gUdioKYK1**")
-
+        # add tezos wallet to DB if format is correct
         if msg.startswith("add"):
             print("add")
             try: 
@@ -93,7 +145,7 @@ async def on_message(message):
                     conn.commit()
                     await message.channel.send("Wallet added for " + str(user) + "!")
 
-
+        # update tezos wallet in DB if format is correct
         if msg.startswith("update"):
             try: 
                 tezos_wallet = message.content.split("update ",1)[1]
