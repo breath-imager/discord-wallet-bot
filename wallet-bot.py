@@ -146,7 +146,7 @@ async def on_message(message):
 
 
         # make it less often, ie. 20% of time
-        rndm = random.choice(range(1,2))
+        rndm = random.choice(range(1,6))
         if (rndm == 1):
             await message.channel.send(np.random.choice(gms)
                   )
