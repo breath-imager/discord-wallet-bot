@@ -101,6 +101,7 @@ async def on_message(message):
                 '  ███    ███ ███   ███   ███  \n' +
                 '  ████████▀   ▀█   ███   █▀   \n' + 
                 '```',
+
                 '```' +
                 '     dBBBBb  dBBBBBBb\n' +
                 '                  dBP\n' +
@@ -121,13 +122,21 @@ async def on_message(message):
                 '      (_)(_)(_)            \n' +         
                 '```',
 
+                '```' +
+                '   /^^   /^^^ /^^ /^^ \n' +
+                ' /^^  /^^ /^^  /^  /^^\n' +
+                '/^^   /^^ /^^  /^  /^^\n' +
+                ' /^^  /^^ /^^  /^  /^^\n' +
+                '     /^^ /^^^  /^  /^^\n' +
+                '  /^^                 \n' +
+                '```',
 
   ]
 
 
 
         # make it less often, ie. 20% of time
-        rndm = random.choice(range(1,6))
+        rndm = random.choice(range(1,2))
         if (rndm == 1):
             await message.channel.send(np.random.choice(gms)
                   )
