@@ -3,3 +3,6 @@ venv
 /env
 instructions.txt
 wallet-bot.sql
+/node_modules
+package.json
+yarn.lock
